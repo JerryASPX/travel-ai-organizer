@@ -1,58 +1,78 @@
-# AI 旅遊行程整理器 MVP
+# AI 旅遊行程整理器｜完整本機版
 
-本機優先的旅遊資料整理工具：匯入行程文件、照片、影片資料夾，產生每日時間排序樹狀條列、互動地圖、Markdown 報告與 JSON。
+本專案是完整的本機旅遊資料整理工具，不使用 GitHub Pages，也不會把照片、影片或 GPS 資料上傳到 GitHub。
 
-## 啟動
+## 下載 Release 後直接使用
 
-在 Windows / Git Bash：
+### Windows
 
-```bash
-cd C:/Users/Jerry/travel-ai-organizer
-python server.py
+1. 安裝 Python 3.11 或 3.12：
+   https://www.python.org/downloads/
+2. 解壓縮 Release ZIP。
+3. 雙擊：
+
+```text
+start_travel_ai.bat
 ```
 
-打開：
+啟動後開啟：
 
 ```text
 http://127.0.0.1:8765/
 ```
 
-## 目前支援
+啟動檔會自動安裝必要套件：
 
-- TXT / MD / CSV / JSON / YAML 文字抽取
-- PDF：若安裝 `pypdf` 可抽文字
-- DOCX：若安裝 `python-docx` 可抽文字
-- XLSX：若安裝 `openpyxl` 可抽文字
-- JPG/TIFF 等照片 EXIF：若安裝 `Pillow` 可讀拍攝時間與 GPS
-- MP4/MOV 等影片：目前用檔案時間建立事件，後續可加 ffmpeg/Whisper
-- OpenStreetMap Nominatim 地理編碼
-- 匯出 `report.md`、`map.html`、`timeline.json`
+- Pillow：照片 EXIF / GPS / 縮圖
+- pypdf：PDF 文字
+- python-docx：Word
+- openpyxl：Excel
 
-## 建議加裝套件
+### Git Bash / macOS / Linux
 
 ```bash
-python -m pip install pillow pypdf python-docx openpyxl
+python3 -m pip install -r requirements.txt
+python3 server.py
 ```
 
-沒有安裝也能跑，只是 PDF/DOCX/XLSX/照片 EXIF 解析能力會較弱。
+然後開啟 `http://127.0.0.1:8765/`。
 
-## 資料位置
+## 功能
+
+- 匯入本機旅遊資料夾
+- 解析 JPG / JPEG / TIFF / PNG / WebP / HEIC
+- 讀取照片拍攝時間與 GPS EXIF
+- GPS 反查推測地點名稱
+- 產生本機縮圖
+- 解析 PDF / Word / Excel / TXT / Markdown / CSV / JSON
+- 影片依檔案時間建立事件
+- 每日時間排序
+- 左側樹狀列表 + 照片縮圖
+- 右側 Leaflet / OpenStreetMap 地圖
+- 照片 📷、影片 🎬、文件 📄、地點 📍 marker
+- 重複地點群組 marker，例如 `🖼️ 12`
+- 群組 popup 最多顯示三張縮圖，其餘顯示 `...`
+- 匯出 Markdown、JSON、互動地圖 HTML
+
+## 本機資料
+
+分析資料會留在本機：
 
 ```text
 data/trips/<旅程代號>/
-├── raw/            # 匯入/複製的原始檔
-├── extracted/      # 抽出的文字
+├── raw/
+├── extracted/
+├── thumbs/
 ├── timeline.json
 ├── places.json
 ├── report.md
 └── map.html
 ```
 
-## 後續可擴充
+這些資料預設不會被 Git 追蹤，也不會包含在 GitHub Release ZIP 裡。
 
-- OCR：圖片截圖/票券辨識
-- ffmpeg：影片縮圖與 metadata
-- faster-whisper + OpenCC：影片語音轉台灣繁中字幕/摘要
-- LLM：事件合併、摘要、每日遊記
-- SQLite：大型旅程索引
-- GPX / Google My Maps 匯出
+## 注意
+
+- GPS 反查是最佳努力；沒有網路時仍會顯示 GPS 座標。
+- 大型照片資料夾第一次分析可能需要一些時間。
+- 完整功能必須透過 `server.py` 執行，不能直接雙擊 `index.html`。
