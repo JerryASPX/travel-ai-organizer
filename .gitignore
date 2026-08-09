@@ -1,0 +1,18 @@
+# Local runtime and private/generated data
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/
+data/config.json
+data/state.json
+data/geocode_cache.json
+data/uploads/
+data/trips/*/raw/
+data/trips/*/extracted/
+data/trips/*/thumbs/
+data/trips/*/timeline.json
+data/trips/*/places.json
+data/trips/*/report.md
+data/trips/*/map.html
+# Keep only the small static demo under docs/

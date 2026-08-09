@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI 旅遊行程整理器</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Local-first Travel AI Organizer</p>
+      <h1>AI 旅遊行程整理器</h1>
+      <p class="subtitle">匯入行程文件、照片、影片資料夾，自動產生每日時間軸、樹狀條列與互動地圖。</p>
+    </div>
+    <div class="status-card" id="statusCard">連線中…</div>
+  </header>
+
+  <main class="app-shell">
+    <section class="panel controls top-controls">
+      <div class="section-title">
+        <h2>1. 建立 / 分析旅程</h2>
+        <span class="pill">第一階段功能區</span>
+      </div>
+      <div class="control-grid">
+        <label>旅程名稱
+          <input id="tripName" value="demo-trip" placeholder="例如：2026 東京賞櫻" />
+        </label>
+        <label>本機資料夾路徑
+          <input id="sourceFolder" placeholder="例如：C:/Users/Jerry/Desktop/2026-tokyo" />
+        </label>
+        <label>選擇已分析旅程
+          <select id="tripSelect"></select>
+        </label>
+        <div class="actions">
+          <button id="runBtn">開始分析</button>
+          <button id="refreshBtn" class="secondary">重新整理</button>
+        </div>
+      </div>
+      <p class="hint">空白時會分析內建 demo；輸入資料夾後，會複製支援檔案到本機資料目錄。大量照片/影片會先依時間建立事件，有 GPS 才會上地圖。</p>
+
+      <details class="result-drawer" id="resultDrawer">
+        <summary>查看 / 隱藏分析結果與下載</summary>
+        <div class="drawer-grid">
+          <div>
+            <h3>匯出</h3>
+            <div id="downloads" class="downloads"></div>
+          </div>
+          <div>
+            <h3>執行紀錄</h3>
+            <div class="log" id="events"></div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="content-grid">
+      <aside class="panel timeline-panel">
+        <div class="toolbar">
+          <div>
+            <h2>2. 樹狀時間軸</h2>
+            <p class="hint compact">每日依時間排序；左側瀏覽，右側地圖同步呈現有座標的相片/影片/地點。</p>
+          </div>
+          <div class="legend mini">
+            <span>📷照片</span><span>🎬影片</span><span>📍地點</span><span>🖼️群組</span>
+          </div>
+        </div>
+        <div id="timeline" class="timeline"></div>
+      </aside>
+
+      <section class="panel map-panel">
+        <div class="toolbar">
+          <div>
+            <h2>3. 地圖</h2>
+            <p class="hint compact">同一地點多張照片/影片會合併成群組圖標，數字代表事件數。</p>
+          </div>
+          <button id="fitMapBtn" class="secondary small-btn">重置地圖</button>
+        </div>
+        <div id="map"></div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <strong>隱私：</strong>原始資料預設留在本機；目前 MVP 只做規則式整理與 OpenStreetMap 地理編碼，後續可加本機 OCR、Whisper、雲端/本機 LLM 摘要。
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
