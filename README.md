@@ -2,7 +2,20 @@
 
 本專案是完整的本機旅遊資料整理工具，不使用 GitHub Pages，也不會把照片、影片或 GPS 資料上傳到 GitHub。
 
-## 下載 Release 後直接使用
+## Windows EXE 版（推薦）
+
+從 GitHub Release 下載 `AI-Travel-Organizer-v0.2.0-windows.zip`，解壓縮後雙擊：
+
+```text
+AI-Travel-Organizer.exe
+```
+
+這個版本不需要另外安裝 Python。啟動後開啟：
+
+```text
+http://127.0.0.1:8765/
+```
+
 
 ### Windows
 

@@ -29,7 +29,9 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 ROOT = Path(__file__).resolve().parent
-DATA = ROOT / "data"
+APP_ROOT = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else ROOT
+BUNDLE_ROOT = Path(getattr(sys, "_MEIPASS", ROOT))
+DATA = APP_ROOT / "data"
 TRIPS = DATA / "trips"
 UPLOADS = DATA / "uploads"
 CONFIG_PATH = DATA / "config.json"
@@ -598,7 +600,7 @@ class Handler(BaseHTTPRequestHandler):
                 self.wfile.write(data)
                 return
             if path in STATIC_FILES:
-                return self.serve_file(ROOT / STATIC_FILES[path])
+                return self.serve_file(BUNDLE_ROOT / STATIC_FILES[path])
             return self.send_error(404)
         except Exception as e:
             traceback.print_exc()

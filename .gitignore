@@ -17,4 +17,7 @@ data/trips/*/report.md
 data/trips/*/map.html
 # Release build artifacts
 release/
+build/
+dist/
+*.spec
 .hermes-tmp.*/
