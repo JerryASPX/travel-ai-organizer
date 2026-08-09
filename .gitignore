@@ -15,4 +15,5 @@ data/trips/*/timeline.json
 data/trips/*/places.json
 data/trips/*/report.md
 data/trips/*/map.html
-# Keep only the small static demo under docs/
+# Release build artifacts
+release/
