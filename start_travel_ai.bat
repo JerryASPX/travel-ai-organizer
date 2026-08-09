@@ -3,8 +3,8 @@ setlocal EnableExtensions
 cd /d "%~dp0"
 
 echo ================================================
-echo   AI 旅遊行程整理器 - 本機版
-echo ====================================
+echo   AI Travel Organizer - Local Edition
+echo ================================================
 echo.
 
 set "PYTHON="
@@ -14,25 +14,25 @@ if not defined PYTHON set "PYTHON=python"
 
 %PYTHON% --version >nul 2>&1
 if errorlevel 1 (
-  echo 找不到 Python 3.11 或 3.12。
-  echo 請先安裝：https://www.python.org/downloads/
+  echo Python 3.11 or 3.12 was not found.
+  echo Install from https://www.python.org/downloads/
   pause
   exit /b 1
 )
 
-echo 使用 Python：
+echo Python:
 %PYTHON% --version
 %PYTHON% -m pip install -r requirements.txt
 if errorlevel 1 (
-  echo 套件安裝失敗，請確認網路連線或以系統管理員執行。
+  echo Dependency installation failed. Check your network connection.
   pause
   exit /b 1
 )
 
 echo.
-echo 正在啟動本機服務： http://127.0.0.1:8765/
-echo 關閉此視窗即可停止服務。
+echo Starting local server at http://127.0.0.1:8765/
+echo Close this window to stop the server.
 echo.
-start "AI 旅遊行程整理器" http://127.0.0.1:8765/
+start "AI Travel Organizer" http://127.0.0.1:8765/
 %PYTHON% server.py
 pause
